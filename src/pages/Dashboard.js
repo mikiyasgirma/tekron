@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Alert, Button } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
+import BodyWrapper from '../components/Navigator/BodyWrapper';
+import Navigate from '../components/Navigator/Navigate';
 import { useAuth} from '../contexts/AuthContext';
 
 export default function Dashboard() {
@@ -20,12 +21,20 @@ export default function Dashboard() {
         }
     }
 
+    
     return (
-        <div>
-            { error && <Alert variant = 'danger'> { error } </Alert> }
-            <Button onClick = {handleLogOut} >Log Out</Button>
-            Dashbord 
-        </div>
+        <>
+        <Navigate title = {'Dashbord'} logout = {()=> handleLogOut()} /> 
+        
+            <BodyWrapper>
+                <div>
+                    {/* { error && <Alert variant = 'danger'> { error } </Alert> } */}
+                    {/* <Button onClick = {handleLogOut} >Log Out</Button> */}
+                    Dashbord 
+                </div>
+            </BodyWrapper>
+        
+    </>
     )
 }
 

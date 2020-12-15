@@ -1,9 +1,10 @@
-import React, {useState} from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState} from 'react'
+import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext'
 import Container from '@material-ui/core/Container';
 import { Avatar, Button, CssBaseline, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
+
 
 const useStyles = makeStyles((theme)=>({
     paper: {
@@ -25,33 +26,31 @@ const useStyles = makeStyles((theme)=>({
     },
 }));
 
-
-export default function SignUp() {
+export default function SignIn() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [passwordConfirm, setPasswordConfirm] = useState('');
-
-    const { signup } = useAuth();
+    
+    const history = useHistory();
+    const { signin } = useAuth();
     const [error , setError] = useState('');
     const [loading, setLoading] = useState(false);
 
     async function handleSubmit(e){
         e.preventDefault();
         
-        if(password !== passwordConfirm){
-            return setError('Password do not match');
-        }
-
         try {
             setError('');
-            await signup(email, password);
+            console.log(email);
+            await signin(email, password);
             setLoading(true);
+            history.push('/');
         } catch (error) {
-            setError('Faild to create an account');
+            setError('Faild to Login');
         }     
         setLoading(false);   
     }
+
     const classes = useStyles();
    
     return (
@@ -62,7 +61,7 @@ export default function SignUp() {
                     <LockOutlined/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign Up
+                    Sing In
                 </Typography>
                 {error &&   <div>{error}</div>}
                 <form className={classes.form} onSubmit = { handleSubmit }>
@@ -93,18 +92,6 @@ export default function SignUp() {
                         
                         autoComplete="current-password"
                     />
-                    <TextField 
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        value={passwordConfirm}
-                        onChange={e => setPasswordConfirm(e.target.value) }
-                        name="passwordConfirm"
-                        label="Confirm password"
-                        type="password"
-                        id="passwordConfirm"
-                    />
                     <Button 
                         disabled={loading}
                         type="submit"
@@ -112,11 +99,16 @@ export default function SignUp() {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        >Sign Up</Button>
+                        >Sign In</Button>
                     <Grid container>
+                        <Grid item xs>
+                            <Link to="#" variant="body2">
+                                Forgot Password?
+                            </Link>
+                        </Grid>
                         <Grid item >
-                        <Link to='/signin' variant="body2">
-                            {"Already have an account? Sign In"}
+                        <Link to='/signup' variant="body2">
+                            {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>
                     </Grid>
