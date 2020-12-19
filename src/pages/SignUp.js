@@ -64,7 +64,7 @@ export default function SignUp() {
                 <Typography component="h1" variant="h5">
                     Sign Up
                 </Typography>
-                {error &&   <div>{error}</div>}
+                {error &&   <Typography color='secondary'>{error.toString()}</Typography>}
                 <form className={classes.form} onSubmit = { handleSubmit }>
                     <TextField 
                         variant="outlined"

@@ -60,10 +60,10 @@ export default function SignIn() {
                 <Avatar className={classes.avatar}>
                     <LockOutlined/>
                 </Avatar>
-                <Typography component="h1" variant="h5">
+                <Typography  component="h1" variant="h5">
                     Sing In
                 </Typography>
-                {error &&   <div>{error}</div>}
+                {error &&   <Typography color='secondary'>{error.toString()}</Typography>}
                 <form className={classes.form} onSubmit = { handleSubmit }>
                     <TextField 
                         variant="outlined"

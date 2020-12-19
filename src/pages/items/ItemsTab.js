@@ -1,5 +1,5 @@
 import React,{ useState, useEffect} from 'react';
-import { Box, Container, Grid, makeStyles} from '@material-ui/core';
+import { Grid, makeStyles} from '@material-ui/core';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TabPanel from '../../components/TabPanel';
@@ -44,11 +44,11 @@ export default function ItemsTabs({children}) {
   ];
 
   const initialRawMaterialsData = [
-    {materialId: 'HM-10025', materialName: 'Dish Washer', category: 'Chemical', quantity: 100, capacity: 10, expDate: Date.now()},
-    {materialId: 'HM-10013', materialName: 'Shampoo', category: 'Bottling', quantity: 200, capacity: 10, expDate: Date.now()},
-    {materialId: 'BO-10025', materialName: 'Liquid Hand Soap', category: 'Label', quantity: 300, capacity: 10, expDate: Date.now()},
-    {materialId: 'BO-10025', materialName: 'Windo Cleaner', category: 'Chemical', quantity: 400, capacity: 10, expDate: Date.now()},
-    {materialId: 'HM-10025', materialName: 'Hand soap', category: 'Cap', quantity: 500, capacity: 10, expDate: Date.now()},
+    {materialId: 'HM-10025', materialName: 'Dish Washer', category: 'Chemical', quantity: 100, reorderPoint: 10, expDate: Date.now()},
+    {materialId: 'HM-10013', materialName: 'Shampoo', category: 'Bottling', quantity: 200, reorderPoint: 10, expDate: Date.now()},
+    {materialId: 'BO-10025', materialName: 'Liquid Hand Soap', category: 'Label', quantity: 300, reorderPoint: 10, expDate: Date.now()},
+    {materialId: 'BO-10025', materialName: 'Windo Cleaner', category: 'Chemical', quantity: 400, reorderPoint: 10, expDate: Date.now()},
+    {materialId: 'HM-10025', materialName: 'Hand soap', category: 'Cap', quantity: 500, reorderPoint: 10, expDate: Date.now()},
 ];
 
   return (
@@ -71,7 +71,7 @@ export default function ItemsTabs({children}) {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <RawMaterialsTable initialData={initialRawMaterialsData}/>
-        ///TODO: render PackagingMaterialsTable
+        {/* TODO: render PackagingMaterialsTable */}
       </TabPanel>
     </div>
   );

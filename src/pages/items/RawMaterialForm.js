@@ -10,6 +10,7 @@ import {
   InputLabel,
   InputAdornment,
   Button,
+  Typography,
 } from "@material-ui/core";
 import React, {useState}from "react";
 import {useHistory} from 'react-router-dom';
@@ -20,6 +21,8 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import { SaveOutlined } from "@material-ui/icons";
+
+import * as MaterialService from '../../services/MaterialServices';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -51,6 +54,9 @@ const useStyles = makeStyles((theme) => ({
 export default function RawMaterialForm() {
   const classes = useStyles();
   const history = useHistory();
+  
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const [materialId, setMaterialId] = useState('');
   const [materialName, setMaterialName] = useState('');
@@ -90,18 +96,30 @@ export default function RawMaterialForm() {
     setReorderPoint(e.target.value);
   }
 
-  const handleSubmit = (e) => {
+  ///TODO: write a utility funtion that validates the inputs  
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newMaterial = [{
+    const newMaterial = {
       "materialId": materialId,
       "materialName": materialName,
       "category": category,
-      "unit": unit,
-      "quantity": quantity,
-      "date": selectedDate,  
-      "reorderPoint": reorderPoint,
-    }];
-    console.log(newMaterial);
+      "quantity": {
+        'unit': unit,
+        'value': Number(quantity) 
+      },
+      "expDate": selectedDate,  
+      "reorderPoint": Number(reorderPoint),
+    };
+
+    try {
+      await MaterialService.createNewRawMaterial(newMaterial);
+      setSuccess('Saved to the Database');
+      history.goBack();
+    } catch (e) {
+      setError(e);
+    }
+    
   }
   
   const handleCancel = (e) => {
@@ -122,6 +140,8 @@ export default function RawMaterialForm() {
         >
           Add Raw Material
         </h2>
+        {error &&   <Typography color='secondary'>{error.toString()}</Typography>}
+        {success &&   <Typography color='primary'>{success.toString()}</Typography>}
         <form onSubmit={handleSubmit} className={classes.paper}>
           <Grid
             container
@@ -132,7 +152,6 @@ export default function RawMaterialForm() {
           >
             <Grid item xs={12}>
               <TextField
-                id="material-id"
                 value={materialId}
                 onChange={handleMaterialIdChange}
                 label="Material Id"
@@ -144,7 +163,6 @@ export default function RawMaterialForm() {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                id="material-name"
                 value={materialName}
                 onChange={handleMaterialNameChange}
                 label="Material Name"
@@ -164,7 +182,6 @@ export default function RawMaterialForm() {
                 <Select
                   variant="filled"
                   labelId="category-label"
-                  id="category"
                   value={category}
                   onChange={handleCategoryChange}
                 >
@@ -186,7 +203,6 @@ export default function RawMaterialForm() {
                   variant="filled"
                   labelId="unit-label"
                   defaultValue="kg"
-                  id="unit"
                   value={unit}
                   onChange={handleUnitChange}
                 >
@@ -204,7 +220,6 @@ export default function RawMaterialForm() {
                 type='number'
                 fullWidth
                 label="Quantity"
-                id="quantity"
                 value={quantity}
                 onChange={handleQuantityChange}
                 style={{ margin: 8 }}
@@ -225,8 +240,7 @@ export default function RawMaterialForm() {
                   style={{ margin: 8 }}
                   format="MM/dd/yyyy"
                   margin="normal"
-                  id="date-picker-inline"
-                  label="Date picker inline"
+                  label="Exp. Date"
                   value={selectedDate}
                   onChange={handleDateChange}
                   KeyboardButtonProps={{
@@ -237,7 +251,6 @@ export default function RawMaterialForm() {
             </Grid>
             <Grid item xs={12}  sm={6}>
               <TextField
-                id="material-name"
                 fullWidth
                 type="number"
                 value={reorderPoint}

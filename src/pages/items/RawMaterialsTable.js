@@ -18,14 +18,14 @@ export default function RawMaterialsTable({initialData}) {
         {title: 'Material Name', field: 'materialName'},
         {title: 'Category', field: 'category'},
         {title: 'Quantity', field: 'quantity'},
-        {title: 'Capacity(for bottleing)', field: 'capacity'},
+        {title: 'Reorder Point', field: 'reorderPoint'},
         {title: 'Exp. Date fie()ld:', field: 'expDate' }
     ]
 
 
     return (
       <MaterialTable
-        title="Materials table"
+        title="Raw Materials"
         columns={columns}
         data={data}        
         options={{
