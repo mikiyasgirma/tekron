@@ -94,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navigate(props) {
 
-   const history = useHistory();
+  // const history = useHistory();
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -104,7 +104,7 @@ export default function Navigate(props) {
     setOpen(false);
   };
   // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
+  //TODO:handle logout functionality here take it from Dashboard component 
   return (
     <>
       <CssBaseline />

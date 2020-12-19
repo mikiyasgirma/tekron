@@ -3,7 +3,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 
 export default  function TabPanel(props) {
-    const { children, value, index, ...other } = props;
+    const { children, value, index, message, ...other  } = props;
   
     return (
       <div
@@ -11,11 +11,12 @@ export default  function TabPanel(props) {
         hidden={value !== index}
         id={`simple-tabpanel-${index}`}
         aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
+        {...other}>
+
         {value === index && (
           <Box p={4}>
-            <Typography>{children}</Typography>
+            <div>{message}</div>
+            {children}
           </Box>
         )}
       </div>

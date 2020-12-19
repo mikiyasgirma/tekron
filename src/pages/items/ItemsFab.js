@@ -9,13 +9,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import AddIcon from '@material-ui/icons/Add';
-import Typography from '@material-ui/core/Typography';
 import { blue } from '@material-ui/core/colors';
-
 import Fab from '@material-ui/core/Fab';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 
 
-const actions = ['New Item', 'New Material'];
+const actions = ['New Item', 'New Raw Material', 'New Packagining Material'];
+
 const useStyles = makeStyles({
   avatar: {
     backgroundColor: blue[100],
@@ -30,8 +30,24 @@ function SimpleDialog(props) {
   const handleClose = () => {
     onClose(selectedValue);
   };
+  
+  const { path, url } = useRouteMatch();
+  const history = useHistory();
 
   const handleListItemClick = (value) => {
+    /// TODO: navigate to ItemsForm page or MaterialsForm Page depending on the value passed.
+    if(value === actions[0]){
+      console.log(url)
+      history.push(`${url}/additem`);
+    } 
+    if(value === actions[1]) {
+       console.log(url)
+       history.push(`${url}/addrawmaterial`);
+    }
+    if(value === actions[2]) {
+       console.log(url)
+       history.push(`${url}/addpackagingmaterial`);
+    }
     onClose(value);
   };
 
@@ -75,8 +91,6 @@ export default function ItemsFab() {
 
   return (
     <div>
-      {/* <Typography variant="subtitle1">Selected: {selectedValue}</Typography>
-      <br/> */}
       <Fab variant="round" color="primary" onClick={handleClickOpen}>
         <AddIcon/>
       </Fab>
