@@ -3,7 +3,11 @@
 import {db} from '../firebase';
 
 
-export const createNewRawMaterial = (newRawMaterial) =>{
-    return db.collection('rawMaterials')
-        .add(newRawMaterial);
+export const createNewRawMaterial = (materialId,newRawMaterial) =>{
+    return db.collection('rawMaterials').doc(materialId)
+        .set(newRawMaterial);
 } 
+
+export const getRawMaterials = () => {
+    return db.collection('rawMaterials').get();
+}

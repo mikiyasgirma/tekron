@@ -113,7 +113,7 @@ export default function RawMaterialForm() {
     };
 
     try {
-      await MaterialService.createNewRawMaterial(newMaterial);
+      await MaterialService.createNewRawMaterial(materialId,newMaterial);
       setSuccess('Saved to the Database');
       history.goBack();
     } catch (e) {
