@@ -3,7 +3,7 @@ import { Grid, makeStyles} from '@material-ui/core';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TabPanel from '../../components/TabPanel';
-import ItemsTabel from './ItemsTable';
+import ItemsTable from './ItemsTable';
 import RawMaterialsTable from './RawMaterialsTable';
 
 function a11yProps(index) {
@@ -31,7 +31,6 @@ export default function ItemsTabs({children}) {
  
 
   const handleChange = (event, newValue) => {
-    /// TODO: When this function got triggerd fetch all the materialsData that is going to be rendered and pass it to Tab 1 as props 
     setValue(newValue);
   };
 
@@ -42,14 +41,6 @@ export default function ItemsTabs({children}) {
     {itemId: 'WC-10025', itemName: 'Windo Cleaner', category: 'Cleaning', variantType:'None'},
     {itemId: 'HS-10025', itemName: 'Hand soap', category: 'Cleaning', variantType:'Flavour'},
   ];
-
-  const initialRawMaterialsData = [
-    {materialId: 'HM-10025', materialName: 'Dish Washer', category: 'Chemical', quantity: 100, reorderPoint: 10, expDate: Date.now()},
-    {materialId: 'HM-10013', materialName: 'Shampoo', category: 'Bottling', quantity: 200, reorderPoint: 10, expDate: Date.now()},
-    {materialId: 'BO-10025', materialName: 'Liquid Hand Soap', category: 'Label', quantity: 300, reorderPoint: 10, expDate: Date.now()},
-    {materialId: 'BO-10025', materialName: 'Windo Cleaner', category: 'Chemical', quantity: 400, reorderPoint: 10, expDate: Date.now()},
-    {materialId: 'HM-10025', materialName: 'Hand soap', category: 'Cap', quantity: 500, reorderPoint: 10, expDate: Date.now()},
-];
 
   return (
     <div className={classes.root}>
@@ -67,10 +58,10 @@ export default function ItemsTabs({children}) {
         </Grid>
         
       <TabPanel value={value} index={0}>
-        <ItemsTabel initialData= {initialItemsData} />
+        <ItemsTable initialData= {initialItemsData} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <RawMaterialsTable initialData={initialRawMaterialsData}/>
+        <RawMaterialsTable/>
         {/* TODO: render PackagingMaterialsTable */}
       </TabPanel>
     </div>

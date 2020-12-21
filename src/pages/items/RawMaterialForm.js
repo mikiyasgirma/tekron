@@ -63,9 +63,8 @@ export default function RawMaterialForm() {
   const [category, setCategory] = useState('');
   const [unit, setUnit] = useState('kg');
   const [quantity, setQuantity] = useState(0); 
-  const [selectedDate, setSelectedDate] = useState(
-    new Date("2020-08-18T21:11:54")
-    );
+  const [selectedDate, setSelectedDate] = useState(new Date.now());
+ 
   const [reorderPoint, setReorderPoint] = useState(0);
 
   const handleMaterialIdChange = (e) =>{
@@ -236,6 +235,7 @@ export default function RawMaterialForm() {
                 <KeyboardDatePicker
                   disableToolbar
                   fullWidth
+                  required
                   variant="inline"
                   style={{ margin: 8 }}
                   format="MM/dd/yyyy"

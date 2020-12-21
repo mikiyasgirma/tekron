@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import MaterialTable from 'material-table';
 
-export default function ItemsTabel({initialData}) {
+export default function ItemsTable({initialData}) {
     
     // const initialData = [
     //     {itemId: 'DW-10025', itemName: 'Dish Washer', category: 'Cleaning', variantType:'Color'},

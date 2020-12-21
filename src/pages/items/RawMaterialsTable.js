@@ -4,21 +4,24 @@ import * as MaterialService from '../../services/MaterialServices';
 
 export default function RawMaterialsTable() {
     
-  // const initialData = [
-  //   {materialId: 'HM-10025', materialName: 'Dish Washer', category: 'Chemical', quantity: 100, reorderPoint: 10, expDate: Date.now()},
-  //   {materialId: 'HM-10013', materialName: 'Shampoo', category: 'Bottling', quantity: 200, reorderPoint: 10, expDate: Date.now()},
-  //   {materialId: 'BO-10025', materialName: 'Liquid Hand Soap', category: 'Label', quantity: 300, reorderPoint: 10, expDate: Date.now()},
-  //   {materialId: 'BO-10025', materialName: 'Windo Cleaner', category: 'Chemical', quantity: 400, reorderPoint: 10, expDate: Date.now()},
-  //   {materialId: 'HM-10025', materialName: 'Hand soap', category: 'Cap', quantity: 500, reorderPoint: 10, expDate: Date.now()},
-  // ];
   const [data, setData] = useState([]);
+  
   const [columns, setColumns] = useState([
     {title: 'Material Id', field: 'materialId'},
     {title: 'Material Name', field: 'materialName'},
-    {title: 'Category', field: 'category'},
-    {title: 'Quantity', field: 'quantity'},
+    {title: 'Category', field: 'category', lookup: {
+      'chemical' : 'Chemical',
+      'dye': 'Dye',
+      'fragnance': 'Fragnance',
+      'localRawMaterial': 'Local RM'
+    }},
+    {title: 'Unit', field: 'unit', lookup:{
+      'kg': 'Killogram', 
+      'ml': 'Milliliter', 
+      'l': 'Liter'}},
+    {title: 'Quantity', field: 'quantity', type: 'numeric'},
     {title: 'Reorder Point', field: 'reorderPoint', type:'numeric'},
-    {title: 'Exp. Date', field: 'expDate'}
+    {title: 'Exp. Date', field: 'expDate', type: 'datetime'}
   ]);
 
   useEffect(() => {
@@ -29,10 +32,11 @@ export default function RawMaterialsTable() {
         tempData.push({
           materialId: doc.data().materialId, 
           materialName: doc.data().materialName, 
-          category: doc.data().category, 
-          quantity: `${doc.data().quantity.value} ${doc.data().quantity.unit}`, 
+          category: doc.data().category,
+          unit: doc.data().quantity.unit, 
+          quantity: doc.data().quantity.value, 
           reorderPoint: doc.data().reorderPoint,
-          expDate: new Date(doc.data().expDate.toDate()).toDateString(),
+          expDate: new Date(doc.data().expDate.toDate()),
           });
       })
       setData(tempData);
@@ -43,12 +47,50 @@ export default function RawMaterialsTable() {
     }
   }, [/*initialData*/])
 
+    async function onRowUpdate(newData, oldData){
+      console.log('New Data: ',newData);
+
+      const dataUpdate = [...data];
+      const index = oldData.tableData.id;
+    
+      try {
+        const modifiedData = {...newData, quantity: {unit: newData.unit, value:Number(newData.quantity)} } 
+       
+        const {materialId, materialName, category, quantity, expDate, reorderPoint } = modifiedData;
+        
+        await MaterialService.updateRawMaterial(oldData.materialId,  {materialId, materialName, category, quantity, expDate, reorderPoint });
+       
+        dataUpdate[index] = newData;
+        setData([...dataUpdate]); 
+
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    
+    async function onRowDelete(oldData){
+      try {
+        const dataDelete = [...data];
+        const index = oldData.tableData.id;
+        
+        await MaterialService.deleteRawMaterial(oldData.materialId);
+        ///TODO: display some succuss message in sanck bar or smth    
+        dataDelete.splice(index, 1);
+        setData([...dataDelete]);
+      } catch (e) {
+        console.log(e);
+      }
+    }
 
     return (
       <MaterialTable
         title="Raw Materials"
         columns={columns}
-        data={data}        
+        data={data}
+        editable={{
+          onRowUpdate: onRowUpdate, 
+          onRowDelete: onRowDelete,
+        }}        
         options={{
           search: true
         }}

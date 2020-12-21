@@ -91,7 +91,7 @@ export default function ItemsFab() {
 
   return (
     <div>
-      <Fab variant="round" color="primary" onClick={handleClickOpen}>
+      <Fab variant="round" color="secondary" onClick={handleClickOpen}>
         <AddIcon/>
       </Fab>
       <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
