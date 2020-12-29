@@ -5,8 +5,6 @@ import PeopleIcon from '@material-ui/icons/People';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import LocalActivityIcon from '@material-ui/icons/LocalActivity';
 import SecurityIcon from '@material-ui/icons/Security';
-import SettingsIcon from '@material-ui/icons/Settings';
-import GavelIcon from '@material-ui/icons/Gavel';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import RecentActorsIcon from '@material-ui/icons/RecentActors';
 
@@ -36,18 +34,28 @@ export const mainListItems = (
           <ListItemText primary="Items" />
       </ListItem>
     </Link>
+    <Link to="/detailsPage">
+      <ListItem button>
+          <ListItemIcon>
+            <LocalActivityIcon />
+          </ListItemIcon>
+          <ListItemText primary="Details page" />
+      </ListItem>
+    </Link>
     <ListItem button>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Customers" />
     </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <GavelIcon />
-      </ListItemIcon>
-      <ListItemText primary="Production" />
-    </ListItem>
+    <Link to="/production">
+      <ListItem button>
+          <ListItemIcon>
+            <LocalActivityIcon />
+          </ListItemIcon>
+          <ListItemText primary="production" />
+      </ListItem>
+    </Link>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
@@ -66,12 +74,14 @@ export const mainListItems = (
 export const secondaryListItems = (
   <div>
     <ListSubheader inset>Manage | Configure</ListSubheader>
-    <ListItem button >
-      <ListItemIcon>
-        <SettingsIcon />
-      </ListItemIcon>
-      <ListItemText primary="Settings" />
-    </ListItem>
+    <Link to="/settings">
+      <ListItem button>
+          <ListItemIcon>
+            <LocalActivityIcon />
+          </ListItemIcon>
+          <ListItemText primary="Settings" />
+      </ListItem>
+    </Link>
     <ListItem button>
       <ListItemIcon>
         <SecurityIcon />

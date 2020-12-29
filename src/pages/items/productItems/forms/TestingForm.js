@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function ItemForm() {
+export default function TestingForm() {
     return (
         <div>
-            Items form 
+            This is testing form
         </div>
     )
 }

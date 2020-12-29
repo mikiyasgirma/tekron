@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import MaterialTable from 'material-table';
-import * as MaterialService from '../../services/MaterialServices';
+import * as MaterialService from '../../../services/MaterialServices';
 
 export default function RawMaterialsTable() {
     

@@ -23,7 +23,7 @@ export default function ItemsTable({initialData}) {
 
     return (
       <MaterialTable
-        title="Items table"
+        title="Items Table"
         columns={columns}
         data={data}        
         options={{

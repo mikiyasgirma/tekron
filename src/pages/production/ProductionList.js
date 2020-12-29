@@ -3,8 +3,8 @@ import { Grid, makeStyles} from '@material-ui/core';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TabPanel from '../../components/TabPanel';
-import ItemsTable from './productItems/ItemsTable';
-import RawMaterialsTable from './materials/RawMaterialsTable';
+import PlanTable from './PlanTable';
+//import RawMaterialsTable from './materials/RawMaterialsTable';
 
 function a11yProps(index) {
   return {
@@ -35,18 +35,18 @@ export default function ItemsTabs({children}) {
   };
 
   const initialItemsData = [
-    {itemId: 'DW-10025', itemName: 'Dish Washer', category: 'Cleaning', variantType:'Color'},
-    {itemId: 'SM-10013', itemName: 'Shampoo', category: 'Cosmetics', variantType:'Flavour'},
-    {itemId: 'LHW-10025', itemName: 'Liquid Hand Soap', category: 'Cleaning', variantType:'Flavour'},
-    {itemId: 'WC-10025', itemName: 'Windo Cleaner', category: 'Cleaning', variantType:'None'},
-    {itemId: 'HS-10025', itemName: 'Hand soap', category: 'Cleaning', variantType:'Flavour'},
+    {planDate: 'DW-10025', productName: 'Dish Washer', quantity: 'Cleaning', status:'Color', availability: 'not Available'},
+    {planDate: 'SM-10013', productName: 'Shampoo', quantity: 'Cosmetics', status:'Flavour', availability: 'Available'},
+    {planDate: 'LHW-10025', productName: 'Liquid Hand Soap', quantity: 'Cleaning', status:'Flavour', availability: 'not Available'},
+    {planDate: 'WC-10025', productName: 'Windo Cleaner', quantity: 'Cleaning', status:'None', availability: 'not Available'},
+    {planDate: 'HS-10025', productName: 'Hand soap', quantity: 'Cleaning', status:'Flavour', availability: 'available'},
   ];
 
   return (
     <div className={classes.root}>
         <Tabs value={value} onChange={handleChange} aria-label="items tabs">
-          <Tab label="Product Items" {...a11yProps(0)}  />
-          <Tab label="Materials" {...a11yProps(1)} />
+          <Tab label="Production Schedule" {...a11yProps(0)}  />
+          <Tab label="Production" {...a11yProps(1)} />
         </Tabs>
         <Grid 
           container
@@ -58,10 +58,10 @@ export default function ItemsTabs({children}) {
         </Grid>
         
       <TabPanel value={value} index={0}>
-        <ItemsTable initialData= {initialItemsData} />
+       {<PlanTable initialData= {initialItemsData} /> }
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <RawMaterialsTable/>
+       {/* <RawMaterialsTable/> */}
         {/* TODO: render PackagingMaterialsTable */}
       </TabPanel>
     </div>

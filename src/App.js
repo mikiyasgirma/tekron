@@ -6,7 +6,9 @@ import SignUp from './pages/SignUp';
 import Dashboard from './pages/Dashboard';
 import PrivateRoute from './pages/PrivateRoute';
 import ItemsPage from './pages/items/ItemsPage';
-
+import SettingsPage from './pages/settings/SettingsPage';
+import ProductionPage from './pages/production/ProductionPage';
+import DetailsPage from './pages/details/DetailsPage';
  
 function App() {
   return (
@@ -19,6 +21,9 @@ function App() {
                 <Route path = '/items' component = { ItemsPage } />
                 <Route path = '/signup' component = { SignUp } />
                 <Route path = '/Signin' component = { SignIn } />
+                <Route path = '/settings' component = { SettingsPage } />
+                <Route path = '/production' component = { ProductionPage } />
+                <Route path = '/detailsPage' component = { DetailsPage } />
               </Switch>
             </AuthProvider>
           </Router>

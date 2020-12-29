@@ -22,7 +22,7 @@ import {
 } from "@material-ui/pickers";
 import { SaveOutlined } from "@material-ui/icons";
 
-import * as MaterialService from '../../services/MaterialServices';
+import * as MaterialService from '../../../services/MaterialServices';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -63,7 +63,7 @@ export default function RawMaterialForm() {
   const [category, setCategory] = useState('');
   const [unit, setUnit] = useState('kg');
   const [quantity, setQuantity] = useState(0); 
-  const [selectedDate, setSelectedDate] = useState(new Date.now());
+  const [selectedDate, setSelectedDate] = useState();
  
   const [reorderPoint, setReorderPoint] = useState(0);
 
